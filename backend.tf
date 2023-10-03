@@ -35,11 +35,10 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 
  
 
-  ttl { 
-
-    attribute_name = "LockExpire" 
-
-  } 
+  ttl {
+    attribute_name = "ttl_attribute_terraform-state-lock"
+    enabled        = true
+  }
 
  
 
@@ -51,5 +50,8 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 
 } 
 
- 
+ output "dynamodb_table_arn" {
+  description = "DynamoDB Table ARN"
+  value       = aws_dynamodb_table.terraform_state_lock.arn
+}
 
